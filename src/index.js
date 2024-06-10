@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
 function useSpotifyWebPlaybackSdk({
-  name,
+  playerName,
   getOAuthToken,
   accountError = () => {},
   onReady = () => {},
@@ -21,7 +21,7 @@ function useSpotifyWebPlaybackSdk({
 
     window.onSpotifyWebPlaybackSDKReady = () => {
       playerRef.current = new Spotify.Player({
-        name: name,
+        name: playerName,
         getOAuthToken: cb => {cb(getOAuthToken())},
         volume: 0.5,
       });
@@ -63,11 +63,11 @@ function useSpotifyWebPlaybackSdk({
     return;
   }, [isReady, onPlayerStateChanged, accountError, handleReady]);
 
-  return {
-    player: playerRef.current,
+  return [
+    playerRef.current,
     deviceId,
     isReady,
-  };
+  ];
 }
 
 export default useSpotifyWebPlaybackSdk;

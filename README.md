@@ -10,50 +10,21 @@
 ## Install
 
 ```sh
-yarn add use-spotify-web-playback-sdk
+npm install ?
 ```
 
 ## Usage
 
 ```js
-import useSpotifyWebPlaybackSdk from "use-spotify-web-playback-sdk";
+import useSpotifyWebPlaybackSdk from "?";
 
-function MyComponent() {
-  const {
-    Script: WebPlaybackSdkScript,
-    deviceId,
-    connect: connectWebPlaybackSdk,
-    player, // https://developer.spotify.com/documentation/web-playback-sdk/reference/#api-spotify-player
-    isReady,
-  } = useSpotifyWebPlaybackSdk({
-    name: "My Spotify Player", // Device that shows up in the spotify devices list
-    getOAuthToken: () => Promise.resolve(sessionStorage.getItem("accessToken")), // Wherever you get your access token from
-    onPlayerStateChanged: (playerState) => {
-      console.log('player state changed:', playerState);
-    }
-  });
-
-  React.useEffect(
-    () => {
-      if (isReady) {
-        connect();
-      }
-    },
-    [isReady],
-  );
-
-  // value == ...
-  return (
-    <React.Suspense fallback={<div>Loading...</div>}>
-    <WebPlaybackSdkScript>
-      <div>Any children</div>
-    </WebPlaybackSdkScript>
-    </React.Suspense>
-  );
+function App() {
+	const [player, deviceId, isReady] = useSpotifyWebPlaybackSdk({
+		name: "NotSpotify Player",
+		getOAuthToken: () => token,
+	});
 }
 ```
 
-Also check out the [TypeScript definitions](https://github.com/niekert/use-spotify-web-playback-sdk/blob/master/index.d.ts) for all options that can be passed to the hook
-
 ## Help
-Check out the [Spotify Playback SDK](https://developer.spotify.com/documentation/web-playback-sdk/reference/#api-spotify-player) docs for reference or feel free to open an issue.
+Check out the best [Spotify Playback SDK](https://developer.spotify.com/documentation/web-playback-sdk/reference/#api-spotify-player) docs for reference or feel free to open an issue.
